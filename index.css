@@ -151,8 +151,6 @@ img {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-+   display: flex; /* Flexboxで内部要素を制御 */
-+   flex-direction: column; /* 縦方向に並べる */
 }
 
 .portfolio-item:hover {
@@ -167,30 +165,13 @@ img {
     color: var(--secondary-color);
 }
 
-+.portfolio-item .achievement-title { /* 実績タイトルの<p>タグ */
-+   margin-bottom: 5px; /* リストとの間のスペースを少し狭める */
-+   margin-top: 10px; /* 上のh3との間に少しスペース */
-+}
-+
-+.portfolio-item .reference-link { /* 参考リンクの<p>タグ */
-+    margin-top: 10px; /* リストとの間にスペース */
-+    margin-bottom: 0; /* 下のボタンとのスペースはボタン側で調整 */
-+}
-
 .portfolio-item ul {
--   margin-top: 10px;
-+   margin-top: 5px; /* achievement-titleの下マージンと合わせて調整 */
--   padding-left: 20px;
-+   padding-left: 25px; /* インデントを少し深く */
+    margin-top: 10px;
+    padding-left: 20px;
     list-style: disc; /* 通常の箇条書きマーカー */
-+   flex-grow: 1; /* コンテンツが少なくても高さを揃えるために追加 */
-+   margin-bottom: 20px; /* 下のボタンとの間に十分なスペースを確保 */
 }
-
 .portfolio-item ul li {
--   margin-bottom: 5px;
-+   margin-bottom: 8px; /* リストアイテム間のスペースを少し広げる */
-+   line-height: 1.5; /* 行間を調整 */
+    margin-bottom: 5px;
 }
 
 .portfolio-item p a { /* 参考リンクなどのスタイル */
@@ -200,10 +181,6 @@ img {
     margin-left: 5px;
     font-size: 0.9em;
 }
-
-+.portfolio-item .btn {
-+    margin-top: auto; /* ボタンを常に下端に配置 */
-+}
 
 
 /* --- スキル --- */
