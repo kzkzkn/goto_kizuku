@@ -36,8 +36,9 @@ a:hover {
     color: #2980b9; /* ホバー時の色を少し濃く */
 }
 
-ul, ol { /* olも追加 */
+ul, ol {
     list-style: none;
+    padding-left: 0; /* デフォルトのpaddingを削除 */
 }
 
 img {
@@ -79,9 +80,9 @@ img {
     border-radius: 5px;
     font-weight: 600;
     transition: background-color 0.3s ease;
-    margin-top: 15px; /* ボタンとテキストの間に少し余白 */
-    border: none; /* ボタンのデフォルト枠線削除 */
-    cursor: pointer; /* カーソルをポインターに */
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
     text-align: center;
 }
 
@@ -98,7 +99,7 @@ img {
 .hero {
     background-color: var(--secondary-color);
     color: #fff;
-    padding: 100px 0;
+    padding: 60px 0; /* 縦幅を狭く */
     text-align: center;
 }
 
@@ -117,6 +118,10 @@ img {
 }
 
 /* --- プロフィール --- */
+#profile { /* プロフィールセクションの下パディングを調整 */
+    padding-bottom: 30px; /* SNSリンクとの間隔を考慮 */
+}
+
 .profile-content {
     display: flex;
     align-items: center;
@@ -124,13 +129,13 @@ img {
 }
 
 .profile-img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* 丸くする */
-    object-fit: cover; /* 画像が歪まないように */
-    border: 5px solid var(--light-bg); /* 枠線 */
+    width: 250px; /* 画像サイズを大きく */
+    height: 250px; /* 画像サイズを大きく */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--light-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* 画像が縮まないように */
+    flex-shrink: 0;
 }
 
 .profile-text {
@@ -141,74 +146,90 @@ img {
     font-size: 1.1rem;
 }
 
-
-/* --- 実績 (ポートフォリオ) --- */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* レスポンシブなグリッド */
-    gap: 30px;
+/* --- SNSリンク セクション --- */
+.social-section {
+    padding: 30px 0; /* 上下の余白 */
+    text-align: center;
+    background-color: #fff; /* 背景は白のまま */
 }
 
+.social-links {
+    /* margin-top は不要に (セクションのpaddingで調整) */
+}
+
+.social-links a {
+    font-size: 2.2rem; /* アイコンサイズを少し調整 */
+    margin: 0 18px; /* アイコン間のスペース */
+    color: var(--secondary-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block; /* transformを有効にするため */
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* --- 実績 (ポートフォリオ) --- */
+/* (変更なし) */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
 .portfolio-item {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex; /* Flexboxで内部要素を制御 */
-    flex-direction: column; /* 縦方向に並べる */
+    display: flex;
+    flex-direction: column;
 }
-
 .portfolio-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
 }
-
 .portfolio-item h3 {
     font-family: var(--heading-font);
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: var(--secondary-color);
 }
-
-.portfolio-item .achievement-title { /* 実績タイトルの<p>タグ */
-    margin-bottom: 5px; /* リストとの間のスペースを少し狭める */
-    margin-top: 10px; /* 上のh3との間に少しスペース */
-    font-weight: bold; /* 実績タイトルを太字に */
+.portfolio-item .achievement-title {
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-weight: bold;
 }
-
-.portfolio-item .reference-link { /* 参考リンクの<p>タグ */
-    margin-top: 10px; /* リストとの間にスペース */
-    margin-bottom: 0; /* 下のボタンとのスペースはボタン側で調整 */
+.portfolio-item .reference-link {
+    margin-top: 10px;
+    margin-bottom: 0;
 }
-
 .portfolio-item ul {
-    margin-top: 5px; /* achievement-titleの下マージンと合わせて調整 */
-    padding-left: 25px; /* インデントを少し深く */
-    list-style: disc; /* 通常の箇条書きマーカー */
-    flex-grow: 1; /* コンテンツが少なくても高さを揃えるために追加 */
-    margin-bottom: 20px; /* 下のボタンとの間に十分なスペースを確保 */
+    margin-top: 5px;
+    padding-left: 25px;
+    list-style: disc;
+    flex-grow: 1;
+    margin-bottom: 20px;
 }
-
 .portfolio-item ul li {
-    margin-bottom: 8px; /* リストアイテム間のスペースを少し広げる */
-    line-height: 1.5; /* 行間を調整 */
+    margin-bottom: 8px;
+    line-height: 1.5;
 }
-
-.portfolio-item p a { /* 参考リンクなどのスタイル */
+.portfolio-item p a {
     font-weight: 600;
 }
 .portfolio-item p a i {
     margin-left: 5px;
     font-size: 0.9em;
 }
-
 .portfolio-item .btn {
-    margin-top: auto; /* ボタンを常に下端に配置 */
+    margin-top: auto;
 }
 
 
 /* --- Offerings (提供できる価値) --- */
+/* (変更なし) */
 .offerings .lead-text {
     text-align: center;
     font-size: 1.1rem;
@@ -218,91 +239,76 @@ img {
     margin-right: auto;
     line-height: 1.7;
 }
-
 .offerings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-bottom: 60px; /* 下のご相談フローとの間隔 */
+    margin-bottom: 60px;
 }
-
 .offering-item {
-    background-color: var(--light-bg); /* 背景色をつけて区別 */
+    background-color: var(--light-bg);
     padding: 30px;
     border-radius: 8px;
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
 }
-
 .offering-item h3 {
     font-family: var(--heading-font);
     font-size: 1.6rem;
     color: var(--secondary-color);
     margin-bottom: 10px;
-    border-bottom: 2px solid var(--primary-color); /* 下線で強調 */
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 8px;
 }
-
 .offering-item .offering-catchphrase {
     font-weight: 600;
     color: var(--primary-color);
     margin-bottom: 20px;
     font-size: 1.1rem;
 }
-
 .offering-item h4 {
     font-family: var(--heading-font);
     font-size: 1.2rem;
     color: var(--secondary-color);
-    margin-top: 25px; /* 各項目の区切り */
+    margin-top: 25px;
     margin-bottom: 15px;
 }
-
 .offering-item ul {
     list-style: none;
     padding-left: 0;
-    flex-grow: 1; /* 内容が少なくても高さを揃える */
-    margin-bottom: 15px; /* ボタンとの間隔調整 */
+    flex-grow: 1;
+    margin-bottom: 15px;
 }
-
-/* Offerings内の基本リストアイテム */
 .offering-item ul.menu-list li,
 .offering-item ul.effect-list li,
 .offering-item ul.highlight-list li,
 .offering-item ul.result-list li {
     margin-bottom: 12px;
     line-height: 1.6;
-    padding-left: 25px; /* アイコン分のインデント */
-    position: relative; /* アイコン配置のため */
+    padding-left: 25px;
+    position: relative;
 }
-
-/* チェックマークアイコン */
 .offering-item ul li i.fa-check-circle {
     color: var(--primary-color);
     position: absolute;
     left: 0;
-    top: 5px; /* 微調整 */
+    top: 5px;
     font-size: 1.1em;
 }
-
-/* ネストされたリスト (ツール、PoCなど) */
 .offering-item ul.sub-list {
-    list-style: disc; /* 通常のマーカー */
+    list-style: disc;
     margin-top: 10px;
-    padding-left: 40px; /* さらにインデント */
+    padding-left: 40px;
 }
-
 .offering-item ul.sub-list li {
-    padding-left: 0; /* アイコン用インデント解除 */
+    padding-left: 0;
     margin-bottom: 8px;
-    position: static; /* positionをリセット */
+    position: static;
 }
-.offering-item ul.sub-list li::marker { /* マーカーの色を変更する場合 */
+.offering-item ul.sub-list li::marker {
     color: var(--primary-color);
 }
-
-/* ツールリストとPoCリストのスタイル（sub-listと同じだが明示的に） */
 .offering-item ul.tool-list,
 .offering-item ul.poc-list {
     list-style: disc;
@@ -319,15 +325,11 @@ img {
 .offering-item ul.poc-list li::marker {
     color: var(--primary-color);
 }
-
-
-/* ご相談フロー */
 .consultation-flow {
     margin-top: 60px;
     padding-top: 40px;
-    border-top: 1px solid #ddd; /* 上に区切り線 */
+    border-top: 1px solid #ddd;
 }
-
 .consultation-flow h3 {
     text-align: center;
     font-family: var(--heading-font);
@@ -335,25 +337,22 @@ img {
     color: var(--secondary-color);
     margin-bottom: 30px;
 }
-
 .flow-list {
     list-style: none;
-    counter-reset: flow-counter; /* 番号用カウンター */
+    counter-reset: flow-counter;
     max-width: 700px;
     margin: 0 auto;
     padding-left: 0;
 }
-
 .flow-list li {
-    counter-increment: flow-counter; /* カウンターを増やす */
+    counter-increment: flow-counter;
     margin-bottom: 20px;
     position: relative;
-    padding-left: 50px; /* 番号表示スペース */
+    padding-left: 50px;
     font-size: 1.1rem;
     line-height: 1.6;
 }
-
-.flow-list li::before { /* 番号のスタイル */
+.flow-list li::before {
     content: counter(flow-counter);
     position: absolute;
     left: 0;
@@ -369,44 +368,38 @@ img {
     font-weight: bold;
     font-size: 1rem;
 }
-
-.flow-list li .flow-step { /* "STEP X" 部分 */
-   display: none; /* CSSで番号を付けるので隠す */
+.flow-list li .flow-step {
+   display: none;
 }
-
-/* お問い合わせ誘導 */
 .call-to-action {
     text-align: center;
     margin-top: 50px;
     padding: 40px 20px;
-    background-color: var(--light-bg); /* 少し背景色をつける */
+    background-color: var(--light-bg);
     border-radius: 8px;
 }
-
 .call-to-action p {
     margin-bottom: 15px;
     font-size: 1.1rem;
 }
-
-.call-to-action .btn { /* ボタンのスタイル調整 */
+.call-to-action .btn {
     padding: 12px 30px;
     font-size: 1.1rem;
     margin-top: 15px;
-    background-color: var(--primary-color); /* ボタン色を明確に */
-    color: #fff; /* テキスト色を白に */
+    background-color: var(--primary-color);
+    color: #fff;
 }
 .call-to-action .btn:hover {
-    background-color: #2980b9; /* ホバー色 */
+    background-color: #2980b9;
 }
-
 .call-to-action .btn i {
-    margin-right: 8px; /* アイコンとテキストの間隔 */
-    margin-left: 0; /* デフォルトの左マージン解除 */
+    margin-right: 8px;
+    margin-left: 0;
 }
 
 
-/* --- お問い合わせ & SNS --- */
-.contact {
+/* --- お問い合わせ (CONTACT) --- */
+.contact { /* contactセクションのスタイルはそのまま */
     text-align: center;
 }
 
@@ -439,7 +432,7 @@ img {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-family: inherit; /* bodyのフォントを継承 */
+    font-family: inherit;
 }
 .contact-form .btn {
     display: block;
@@ -448,30 +441,22 @@ img {
     font-size: 1.1rem;
 }
 
-
+/* contactセクション内の .social-links スタイルは不要になったため削除 */
+/*
 .social-links {
     margin-top: 30px;
 }
-
-.social-links a {
-    font-size: 2rem;
-    margin: 0 15px;
-    color: var(--secondary-color);
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.social-links a:hover {
-    color: var(--primary-color);
-    transform: scale(1.1); /* ホバー時に少し拡大 */
-}
+.social-links a { ... }
+.social-links a:hover { ... }
+*/
 
 /* --- フッター --- */
 .footer {
     background-color: var(--secondary-color);
-    color: #ccc; /* 少し薄い白 */
+    color: #ccc;
     text-align: center;
     padding: 20px 0;
-    margin-top: 40px; /* メインコンテンツとの間に余白 */
+    margin-top: 40px;
 }
 
 .footer p {
@@ -488,17 +473,22 @@ img {
     }
 
     .profile-content {
-        flex-direction: column; /* 縦並びにする */
+        flex-direction: column;
         text-align: center;
     }
     .profile-img {
-        width: 150px; /* 少し小さく */
-        height: 150px;
-        margin-bottom: 20px; /* 下に余白 */
+        width: 180px; /* レスポンシブでも少し大きく */
+        height: 180px; /* レスポンシブでも少し大きく */
+        margin-bottom: 20px;
     }
 
     .section-title {
         font-size: 2rem;
+    }
+
+    .social-links a {
+        font-size: 2rem; /* スマホでのアイコンサイズ調整 */
+        margin: 0 12px; /* スマホでのアイコン間隔調整 */
     }
 
     .offerings .lead-text {
@@ -506,7 +496,7 @@ img {
         margin-bottom: 40px;
     }
     .offerings-grid {
-       grid-template-columns: 1fr; /* 1列にする */
+       grid-template-columns: 1fr;
        gap: 25px;
     }
     .offering-item h3 {
@@ -527,14 +517,12 @@ img {
     .call-to-action {
        padding: 30px 15px;
     }
-
-    .social-links a {
-        font-size: 1.8rem;
-        margin: 0 10px;
-    }
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding: 50px 0; /* さらに狭く */
+    }
     .hero h1 {
         font-size: 2.2rem;
     }
@@ -547,6 +535,17 @@ img {
     .section-title {
         font-size: 1.8rem;
     }
+
+    .profile-img {
+        width: 150px; /* 最小画面でのサイズ */
+        height: 150px;
+    }
+
+    .social-links a {
+        font-size: 1.8rem; /* 最小画面でのアイコンサイズ */
+        margin: 0 10px; /* 最小画面でのアイコン間隔 */
+    }
+
     .portfolio-item {
         padding: 20px;
     }
@@ -557,11 +556,11 @@ img {
     .offering-item {
         padding: 20px;
     }
-    .offering-item ul li { /* 基本リスト */
-       padding-left: 20px; /* アイコンインデント縮小 */
+    .offering-item ul li {
+       padding-left: 20px;
     }
-    .offering-item ul.sub-list { /* ネストリスト */
-       padding-left: 25px; /* ネストインデント縮小 */
+    .offering-item ul.sub-list {
+       padding-left: 25px;
     }
     .flow-list li {
        padding-left: 40px;
