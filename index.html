@@ -12,30 +12,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ヒーローセクションをまず表示
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.classList.add('visible');
-            }
-
-            // 他の主要な要素やセクションにクラスを追加
-            const elementsToFadeIn = document.querySelectorAll('.section, .social-section'); // アニメーションさせたい要素のセレクタ
-            elementsToFadeIn.forEach(el => {
-                // 少し遅延させるか、スクロールに応じて表示させる場合はIntersection Observerを使うと良い
-                // ここでは単純にページ読み込み後にクラスを追加
-                el.classList.add('visible');
-            });
-
-            // もし .fade-in-element を使うなら
-            // const fadeElements = document.querySelectorAll('.fade-in-element');
-            // fadeElements.forEach(el => el.classList.add('visible'));
-        });
-    </script>
 <body>
 
-    <header class="hero">
+    <!-- ↓ animated-item クラスを追加 -->
+    <header class="hero animated-item">
         <div class="container">
             <h1>Kizuku Goto</h1>
             <p class="catchphrase">「東京×群馬の学生コミュニティビルダー」</p>
@@ -44,7 +24,8 @@
     </header>
 
     <main>
-        <section id="profile" class="profile section">
+        <!-- ↓ animated-item クラスを追加 -->
+        <section id="profile" class="profile section animated-item">
             <div class="container">
                 <h2 class="section-title">PROFILE</h2>
                 <div class="profile-content">
@@ -60,7 +41,8 @@
         </section>
 
         <!-- SNSリンクをプロフィールの下に移動 -->
-        <section id="social" class="social-section">
+        <!-- ↓ animated-item クラスを追加 -->
+        <section id="social" class="social-section animated-item">
              <div class="container">
                 <div class="social-links">
                     <a href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -72,10 +54,12 @@
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio section bg-light">
+        <!-- ↓ animated-item クラスを追加 -->
+        <section id="portfolio" class="portfolio section bg-light animated-item">
             <div class="container">
                 <h2 class="section-title">WORKS & ACHIEVEMENTS</h2>
                 <div class="portfolio-grid">
+                    {/* portfolio-item にもクラスを追加する場合は、JSで制御 */}
                     <article class="portfolio-item">
                         <h3>学生団体SONOSAKIの立ち上げと仕組み化</h3>
                         <p class="achievement-title"><strong>実績：</strong></p>
@@ -111,7 +95,8 @@
             </div>
         </section>
 
-       <section id="offerings" class="offerings section">
+       <!-- ↓ animated-item クラスを追加 -->
+       <section id="offerings" class="offerings section animated-item">
            <div class="container">
                <h2 class="section-title">OFFERINGS｜提供できる価値</h2>
                <p class="lead-text">
@@ -120,6 +105,7 @@
                </p>
 
                <div class="offerings-grid">
+                   {/* offering-item にもクラスを追加する場合は、JSで制御 */}
                    <article class="offering-item">
                        <h3>1. 生成AI導入支援</h3>
                        <p class="offering-catchphrase">「まず “動く” ところまで持っていく」が得意です</p>
@@ -212,26 +198,108 @@
            </div>
        </section>
 
-        <section id="contact" class="contact section bg-light">
+        <!-- ↓ animated-item クラスを追加 -->
+        <section id="contact" class="contact section bg-light animated-item">
             <div class="container">
                 <h2 class="section-title">CONTACT</h2>
                 <p>お気軽にご連絡ください。</p>
                 <p>Email: <a href="mailto:kzkn510@gmail.com">kzkn510@gmail.com</a></p>
-                <!-- SNSリンクは上に移動したので削除 -->
-                <!--
-                <form action="#" method="post" class="contact-form">
-                    ... (フォーム部分はそのまま残す場合) ...
-                </form>
-                 -->
             </div>
         </section>
     </main>
 
-    <footer class="footer">
+    <!-- ↓ animated-item クラスを追加 -->
+    <footer class="footer animated-item">
         <div class="container">
             <p>© Kizuku Goto 2025</p>
         </div>
     </footer>
+
+    <!-- ↓ JavaScriptコードをここに移動し、内容を更新 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 主要セクションのアニメーション ---
+            const animatedItems = document.querySelectorAll('.animated-item');
+
+            // Intersection Observerのオプション
+            const options = {
+              root: null, // ビューポートをルートとする
+              rootMargin: '0px',
+              threshold: 0.1 // 10%表示されたら発火
+            };
+
+            // Intersection Observerのコールバック関数
+            const callback = (entries, observer) => {
+              entries.forEach(entry => {
+                // 要素がビューポート内に入ったら is-visible クラスを追加
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  // 一度表示したら監視を停止（オプション）
+                  // observer.unobserve(entry.target);
+                }
+              });
+            };
+
+            // Intersection Observerのインスタンスを作成
+            const observer = new IntersectionObserver(callback, options);
+
+            // 各要素を監視対象に追加
+            animatedItems.forEach(item => {
+              observer.observe(item);
+            });
+
+
+            // --- ポートフォリオやOfferings内のアイテムのアニメーション (オプション) ---
+            // 親要素が表示された後、中のアイテムを順番に表示させる
+            const portfolioSection = document.querySelector('#portfolio');
+            const offeringsSection = document.querySelector('#offerings');
+
+            const itemOptions = { threshold: 0.1 };
+
+            const itemCallback = (entries, itemObserverInstance) => { // itemObserverInstance を引数に追加
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // 少し遅延させて表示させる (CSSのtransition-delayでも可)
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, index * 100); // 0.1秒ずつ遅延
+                        itemObserverInstance.unobserve(entry.target); // 一度表示したら監視停止
+                    }
+                });
+            };
+
+            // itemObserver のインスタンスをここで作成
+            const itemObserver = new IntersectionObserver(itemCallback, itemOptions);
+
+            // ポートフォリオセクションが表示されたら、中のアイテムを監視開始
+            const portfolioObserver = new IntersectionObserver((entries, pObserver) => { // pObserver を引数に追加
+                if (entries[0].isIntersecting) {
+                    const portfolioItems = portfolioSection.querySelectorAll('.portfolio-item');
+                    portfolioItems.forEach(item => itemObserver.observe(item));
+                    pObserver.unobserve(portfolioSection); // 親の監視は停止
+                }
+            }, { threshold: 0.1 });
+
+            if (portfolioSection) {
+                portfolioObserver.observe(portfolioSection);
+            }
+
+            // Offeringsセクションが表示されたら、中のアイテムを監視開始
+            const offeringsObserver = new IntersectionObserver((entries, oObserver) => { // oObserver を引数に追加
+                if (entries[0].isIntersecting) {
+                    const offeringItems = offeringsSection.querySelectorAll('.offering-item');
+                    offeringItems.forEach(item => itemObserver.observe(item));
+                    oObserver.unobserve(offeringsSection); // 親の監視は停止
+                }
+            }, { threshold: 0.1 });
+
+             if (offeringsSection) {
+                offeringsObserver.observe(offeringsSection);
+            }
+
+        });
+    </script>
+    <!-- ↑ JavaScriptコードここまで -->
 
 </body>
 </html>
