@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kizuku Goto - Personal Website</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
             <div class="container">
                 <h2 class="section-title">PROFILE</h2>
                 <div class="profile-content">
-                    <img src="profile.jpg" alt="後藤 築さんの顔写真" class="profile-img">
+                   <img src="prof.jpg" alt="後藤 輝さんの顔写真" class="profile-img">
                     <div class="profile-text">
                         <p>
                             宮城県出身、群馬と東京で活動する生成AI好きな大学生。<br>
@@ -44,7 +44,7 @@
                 <div class="portfolio-grid">
                     <article class="portfolio-item">
                         <h3>学生団体SONOSAKIの立ち上げと仕組み化</h3>
-                        <p><strong>実績：</strong></p>
+                        <p class="achievement-title"><strong>実績：</strong></p>
                         <ul>
                             <li>企業協賛：12社＋1官庁</li>
                             <li>200名規模の講演イベント開催</li>
@@ -56,7 +56,7 @@
 
                     <article class="portfolio-item">
                         <h3>LinkedIn Student Club Japan Ambassador</h3>
-                         <p><strong>実績：</strong></p>
+                         <p class="achievement-title"><strong>実績：</strong></p>
                         <ul>
                            <li>Panasonic、日本マイクロソフト copilot開発部チーム担当</li>
                            <li>イベント総集客人数5,000名達成</li>
@@ -66,134 +66,117 @@
 
                     <article class="portfolio-item">
                         <h3>学生団体AIspire立ち上げ</h3>
-                         <p><strong>実績：</strong></p>
+                         <p class="achievement-title"><strong>実績：</strong></p>
                          <ul>
                            <li>BaseMe様とのコラボイベントにてモデレーター担当</li>
                          </ul>
-                         <p><a href="https://x.com/baseme_jp/status/1917929170086355233?s=46" target="_blank" rel="noopener noreferrer">参考リンク (X) <i class="fa-brands fa-x-twitter"></i></a></p>
+                         <p class="reference-link"><a href="https://x.com/baseme_jp/status/1917929170086355233?s=46" target="_blank" rel="noopener noreferrer">参考リンク (X) <i class="fa-brands fa-x-twitter"></i></a></p>
                         <a href="https://www.instagram.com/aispire_aitool?igsh=MzM4dmp6NTBzOGV3" target="_blank" rel="noopener noreferrer" class="btn">詳しく見る <i class="fa-brands fa-instagram"></i></a>
                     </article>
                 </div>
             </div>
         </section>
 
-               </section>
-        -->
+       <section id="offerings" class="offerings section">
+           <div class="container">
+               <h2 class="section-title">OFFERINGS｜提供できる価値</h2>
+               <p class="lead-text">
+                   “使えるところまで伴走し、仕組みとして定着させる”──これが私のコアバリューです。<br>
+                   下記３つの領域で、企画段階から運用・改善までワンストップで支援できます。
+               </p>
 
--       <section id="skills" class="skills section">
--           <div class="container">
--               <h2 class="section-title">SKILLS</h2>
--               <ul class="skills-list">
--                   <li><i class="fas fa-check-circle"></i> 生成AIの導入支援（企業や学生団体向け）</li>
--                   <li><i class="fas fa-check-circle"></i> 学生向けイベントの運営・集客・企画</li>
--                   <li><i class="fas fa-check-circle"></i> コミュニティの立ち上げ・仕組み化</li>
--                   <li><i class="fas fa-check-circle"></i> 新規事業開発やアイデア創出支援（特に学生向け）</li>
--               </ul>
--           </div>
--       </section>
-+       <section id="offerings" class="offerings section">
-+           <div class="container">
-+               <h2 class="section-title">OFFERINGS｜提供できる価値</h2>
-+               <p class="lead-text">
-+                   “使えるところまで伴走し、仕組みとして定着させる”──これが私のコアバリューです。<br>
-+                   下記３つの領域で、企画段階から運用・改善までワンストップで支援できます。
-+               </p>
-+
-+               <div class="offerings-grid">
-+                   <article class="offering-item">
-+                       <h3>1. 生成AI導入支援</h3>
-+                       <p class="offering-catchphrase">「まず “動く” ところまで持っていく」が得意です</p>
-+
-+                       <h4>支援メニュー</h4>
-+                       <ul class="menu-list">
-+                           <li>目的整理ワークショップ：業務フロー・KPI棚卸し→AI活用ポイントを設計</li>
-+                           <li>ツール選定 & ガイドライン策定
-+                               <ul class="sub-list tool-list">
-+                                   <li>ChatGPT（4.5／4o／4.1）</li>
-+                                   <li>Claude 3 Sonnet</li>
-+                                   <li>Gemini 2.5 Pro</li>
-+                                   <li>Microsoft Copilot／Copilot 365／Power Automate</li>
-+                               </ul>
-+                           </li>
-+                           <li>PoC開発
-+                               <ul class="sub-list poc-list">
-+                                   <li>ノーコードLP・FAQチャットボット</li>
-+                                   <li>RAG型社内検索プロトタイプ</li>
-+                                   <li>Difyを使った業務自動化フロー</li>
-+                               </ul>
-+                           </li>
-+                           <li>Prompt Gym ワークショップ（90 min ×2で現場定着）</li>
-+                       </ul>
-+
-+                       <h4>導入効果イメージ</h4>
-+                       <ul class="effect-list">
-+                           <li><i class="fas fa-check-circle"></i> 社内問い合わせを自動応答化 → 対応工数を大幅削減</li>
-+                           <li><i class="fas fa-check-circle"></i> 営業提案書のドラフト生成 → 提案スピード２倍</li>
-+                           <li><i class="fas fa-check-circle"></i> LP／ウェブページを非エンジニアでも即日公開</li>
-+                       </ul>
-+                   </article>
-+
-+                   <article class="offering-item">
-+                       <h3>2. 学生向けイベント運営・集客コンサルティング</h3>
-+
-+                       <h4>支援メニュー</h4>
-+                       <ul class="menu-list">
-+                           <li>コンセプト設計：独自フレームで“刺さるテーマ”を定義</li>
-+                           <li>協賛企業マッチング & 登壇者交渉</li>
-+                           <li>集客ファネル設計：SNS＋オフライン導線／アンバサダー育成</li>
-+                           <li>当日オペレーション設計＆スタッフマニュアル作成</li>
-+                       </ul>
-+
-+                       <h4>実績ハイライト</h4>
-+                       <ul class="highlight-list">
-+                           <li><i class="fas fa-check-circle"></i> 200名規模の学生イベントを２か月で企画→満員御礼</li>
-+                           <li><i class="fas fa-check-circle"></i> SoftBank×KING ビジコン優勝メンバーを輩出</li>
-+                           <li><i class="fas fa-check-circle"></i> LinkedIn Student Career Week：来場者1,000名超に貢献</li>
-+                       </ul>
-+                   </article>
-+
-+                   <article class="offering-item">
-+                       <h3>3. コミュニティ立ち上げ・仕組み化</h3>
-+
-+                       <h4>支援メニュー</h4>
-+                       <ul class="menu-list">
-+                           <li>ミッション／バリュー策定とオンボーディング設計</li>
-+                           <li>Slack基盤＋Notion運用テンプレート構築</li>
-+                           <li>定例イベントの型化（週報・LT会・勉強会など）</li>
-+                           <li>コアメンバー育成（リーダーシップ／ファシリ術）</li>
-+                       </ul>
-+
-+                       <h4>成果例</h4>
-+                       <ul class="result-list">
-+                           <li><i class="fas fa-check-circle"></i> 学生団体 SONOSAKI：40名アクティブコアを半年維持</li>
-+                           <li><i class="fas fa-check-circle"></i> 月例イベント継続率 80％超</li>
-+                       </ul>
-+                   </article>
-+               </div>
-+
-+               <div class="consultation-flow">
-+                   <h3>ご相談フロー</h3>
-+                   <ol class="flow-list">
-+                       <li><span class="flow-step">STEP 1</span>オンライン30分ヒアリング（課題・ゴール確認）</li>
-+                       <li><span class="flow-step">STEP 2</span>伴走プランご提案（１週間以内）</li>
-+                       <li><span class="flow-step">STEP 3</span>ミニマム実装・PoC（２〜４週間）</li>
-+                       <li><span class="flow-step">STEP 4</span>効果測定 → スケール／ピボット</li>
-+                   </ol>
-+               </div>
-+
-+               <div class="call-to-action">
-+                   <p>まずはカジュアルにお話ししましょう！</p>
-+                   <p>ご都合の良い時間をお選びください。</p>
-+                   <a href="https://calendar.app.google/jL4FY1VV6G2vN3Ak8" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-+                       <i class="far fa-calendar-alt"></i> カレンダーで日程調整する
-+                   </a>
-+               </div>
-+
-+           </div>
-+       </section>
+               <div class="offerings-grid">
+                   <article class="offering-item">
+                       <h3>1. 生成AI導入支援</h3>
+                       <p class="offering-catchphrase">「まず “動く” ところまで持っていく」が得意です</p>
 
-        <section id="contact" class="contact section bg-light">
-            <div class="container">
+                       <h4>支援メニュー</h4>
+                       <ul class="menu-list">
+                           <li>目的整理ワークショップ：業務フロー・KPI棚卸し→AI活用ポイントを設計</li>
+                           <li>ツール選定 & ガイドライン策定
+                               <ul class="sub-list tool-list">
+                                   <li>ChatGPT（4.5／4o／4.1）</li>
+                                   <li>Claude 3 Sonnet</li>
+                                   <li>Gemini 2.5 Pro</li>
+                                   <li>Microsoft Copilot／Copilot 365／Power Automate</li>
+                               </ul>
+                           </li>
+                           <li>PoC開発
+                               <ul class="sub-list poc-list">
+                                   <li>ノーコードLP・FAQチャットボット</li>
+                                   <li>RAG型社内検索プロトタイプ</li>
+                                   <li>Difyを使った業務自動化フロー</li>
+                               </ul>
+                           </li>
+                           <li>Prompt Gym ワークショップ（90 min ×2で現場定着）</li>
+                       </ul>
+
+                       <h4>導入効果イメージ</h4>
+                       <ul class="effect-list">
+                           <li><i class="fas fa-check-circle"></i> 社内問い合わせを自動応答化 → 対応工数を大幅削減</li>
+                           <li><i class="fas fa-check-circle"></i> 営業提案書のドラフト生成 → 提案スピード２倍</li>
+                           <li><i class="fas fa-check-circle"></i> LP／ウェブページを非エンジニアでも即日公開</li>
+                       </ul>
+                   </article>
+
+                   <article class="offering-item">
+                       <h3>2. 学生向けイベント運営・集客コンサルティング</h3>
+
+                       <h4>支援メニュー</h4>
+                       <ul class="menu-list">
+                           <li>コンセプト設計：独自フレームで“刺さるテーマ”を定義</li>
+                           <li>協賛企業マッチング & 登壇者交渉</li>
+                           <li>集客ファネル設計：SNS＋オフライン導線／アンバサダー育成</li>
+                           <li>当日オペレーション設計＆スタッフマニュアル作成</li>
+                       </ul>
+
+                       <h4>実績ハイライト</h4>
+                       <ul class="highlight-list">
+                           <li><i class="fas fa-check-circle"></i> 200名規模の学生イベントを２か月で企画→満員御礼</li>
+                           <li><i class="fas fa-check-circle"></i> SoftBank×KING ビジコン優勝メンバーを輩出</li>
+                           <li><i class="fas fa-check-circle"></i> LinkedIn Student Career Week：来場者1,000名超に貢献</li>
+                       </ul>
+                   </article>
+
+                   <article class="offering-item">
+                       <h3>3. コミュニティ立ち上げ・仕組み化</h3>
+
+                       <h4>支援メニュー</h4>
+                       <ul class="menu-list">
+                           <li>ミッション／バリュー策定とオンボーディング設計</li>
+                           <li>Slack基盤＋Notion運用テンプレート構築</li>
+                           <li>定例イベントの型化（週報・LT会・勉強会など）</li>
+                           <li>コアメンバー育成（リーダーシップ／ファシリ術）</li>
+                       </ul>
+
+                       <h4>成果例</h4>
+                       <ul class="result-list">
+                           <li><i class="fas fa-check-circle"></i> 学生団体 SONOSAKI：40名アクティブコアを半年維持</li>
+                           <li><i class="fas fa-check-circle"></i> 月例イベント継続率 80％超</li>
+                       </ul>
+                   </article>
+               </div>
+
+               <div class="consultation-flow">
+                   <h3>ご相談フロー</h3>
+                   <ol class="flow-list">
+                       <li><span class="flow-step">STEP 1</span>オンライン30分ヒアリング（課題・ゴール確認）</li>
+                       <li><span class="flow-step">STEP 2</span>伴走プランご提案（１週間以内）</li>
+                       <li><span class="flow-step">STEP 3</span>ミニマム実装・PoC（２〜４週間）</li>
+                       <li><span class="flow-step">STEP 4</span>効果測定 → スケール／ピボット</li>
+                   </ol>
+               </div>
+
+               <div class="call-to-action">
+                   <p>まずはカジュアルにお話ししましょう！</p>
+                   <p>ご都合の良い時間をお選びください。</p>
+                   <a href="https://calendar.app.google/jL4FY1VV6G2vN3Ak8" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                       <i class="far fa-calendar-alt"></i> カレンダーで日程調整する
+                   </a>
+               </div>
+
+           </div>
+       </section>
 
         <section id="contact" class="contact section bg-light">
             <div class="container">
