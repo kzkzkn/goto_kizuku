@@ -184,22 +184,268 @@ img {
 
 
 /* --- スキル --- */
-.skills-list {
-    max-width: 700px; /* 中央に寄せるため幅を制限 */
-    margin: 0 auto;
-    font-size: 1.1rem;
+/* (前のCSSは省略) */
+
+-/* --- スキル --- */
+-.skills-list {
+-   max-width: 700px; /* 中央に寄せるため幅を制限 */
+-   margin: 0 auto;
+-   font-size: 1.1rem;
+-}
+-
+-.skills-list li {
+-   margin-bottom: 15px;
+-   display: flex;
+-   align-items: center;
+-}
+-
+-.skills-list i {
+-   color: var(--primary-color);
+-   margin-right: 15px;
+-   font-size: 1.3em; /* アイコンを少し大きく */
+-}
+
++/* --- Offerings (提供できる価値) --- */
++.offerings .lead-text {
++    text-align: center;
++    font-size: 1.1rem;
++    margin-bottom: 50px;
++    max-width: 800px;
++    margin-left: auto;
++    margin-right: auto;
++    line-height: 1.7;
++}
++
++.offerings-grid {
++    display: grid;
++    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
++    gap: 30px;
++    margin-bottom: 60px; /* 下のご相談フローとの間隔 */
++}
++
++.offering-item {
++    background-color: var(--light-bg); /* 背景色をつけて区別 */
++    padding: 30px;
++    border-radius: 8px;
++    border: 1px solid #eee;
++    display: flex;
++    flex-direction: column;
++}
++
++.offering-item h3 {
++    font-family: var(--heading-font);
++    font-size: 1.6rem;
++    color: var(--secondary-color);
++    margin-bottom: 10px;
++    border-bottom: 2px solid var(--primary-color); /* 下線で強調 */
++    padding-bottom: 8px;
++}
++
++.offering-item .offering-catchphrase {
++    font-weight: 600;
++    color: var(--primary-color);
++    margin-bottom: 20px;
++    font-size: 1.1rem;
++}
++
++.offering-item h4 {
++    font-family: var(--heading-font);
++    font-size: 1.2rem;
++    color: var(--secondary-color);
++    margin-top: 25px; /* 各項目の区切り */
++    margin-bottom: 15px;
++}
++
++.offering-item ul {
++    list-style: none;
++    padding-left: 0;
++    flex-grow: 1; /* 内容が少なくても高さを揃える */
++}
++
++.offering-item ul li {
++    margin-bottom: 12px;
++    line-height: 1.6;
++    padding-left: 25px; /* アイコン分のインデント */
++    position: relative; /* アイコン配置のため */
++}
++
++.offering-item ul li i.fa-check-circle { /* アイコンのスタイル */
++    color: var(--primary-color);
++    position: absolute;
++    left: 0;
++    top: 5px; /* 微調整 */
++    font-size: 1.1em;
++}
++
++.offering-item ul.sub-list { /* ネストされたリスト */
++    list-style: disc; /* 通常のマーカー */
++    margin-top: 10px;
++    padding-left: 40px; /* さらにインデント */
++}
++
++.offering-item ul.sub-list li {
++    padding-left: 0; /* アイコン用インデント解除 */
++    margin-bottom: 8px;
++}
++/* ツールリストはデフォルトマーカー */
++.offering-item ul.tool-list,
++.offering-item ul.poc-list {
++    list-style: disc;
++    padding-left: 40px;
++}
++.offering-item ul.tool-list li,
++.offering-item ul.poc-list li {
++    padding-left: 0; /* padding-leftをリセット */
++    position: static; /* positionをリセット */
++}
++.offering-item ul.tool-list li::marker, /* マーカーの色を変更する場合 */
++.offering-item ul.poc-list li::marker {
++    color: var(--primary-color);
++}
++
++
++/* ご相談フロー */
++.consultation-flow {
++    margin-top: 60px;
++    padding-top: 40px;
++    border-top: 1px solid #ddd; /* 上に区切り線 */
++}
++
++.consultation-flow h3 {
++    text-align: center;
++    font-family: var(--heading-font);
++    font-size: 1.8rem;
++    color: var(--secondary-color);
++    margin-bottom: 30px;
++}
++
++.flow-list {
++    list-style: none;
++    counter-reset: flow-counter; /* 番号用カウンター */
++    max-width: 700px;
++    margin: 0 auto;
++    padding-left: 0;
++}
++
++.flow-list li {
++    counter-increment: flow-counter; /* カウンターを増やす */
++    margin-bottom: 20px;
++    position: relative;
++    padding-left: 50px; /* 番号表示スペース */
++    font-size: 1.1rem;
++    line-height: 1.6;
++}
++
++.flow-list li::before { /* 番号のスタイル */
++    content: counter(flow-counter);
++    position: absolute;
++    left: 0;
++    top: 0;
++    width: 35px;
++    height: 35px;
++    background-color: var(--primary-color);
++    color: #fff;
++    border-radius: 50%;
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    font-weight: bold;
++    font-size: 1rem;
++}
++
++.flow-list li .flow-step { /* "STEP X" 部分 (HTMLに追加した場合) */
++   display: none; /* CSSで番号を付けるので不要なら隠すか、デザイン調整 */
++   /* または、以下のようにして番号の横に表示させることも可能 */
++   /* font-weight: bold; margin-right: 10px; color: var(--secondary-color); */
++}
++
++/* お問い合わせ誘導 */
++.call-to-action {
++    text-align: center;
++    margin-top: 50px;
++    padding: 40px 20px;
++    background-color: var(--light-bg); /* 少し背景色をつける */
++    border-radius: 8px;
++}
++
++.call-to-action p {
++    margin-bottom: 15px;
++    font-size: 1.1rem;
++}
++
++.call-to-action .btn { /* ボタンのスタイル調整 */
++    padding: 12px 30px;
++    font-size: 1.1rem;
++    margin-top: 15px;
++}
++.call-to-action .btn i {
++    margin-right: 8px; /* アイコンとテキストの間隔 */
++    margin-left: 0; /* デフォルトの左マージン解除 */
++}
+
+
+/* --- お問い合わせ & SNS --- */
+/* (変更なし) */
+
+
+/* --- フッター --- */
+/* (変更なし) */
+
+
+/* --- レスポンシブ対応 (簡単な例) --- */
+@media (max-width: 768px) {
+    /* (他のレスポンシブ設定は省略) */
+
+    .offerings .lead-text {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
++   .offerings-grid {
++       grid-template-columns: 1fr; /* 1列にする */
++       gap: 25px;
++   }
++   .offering-item h3 {
++       font-size: 1.4rem;
++   }
++   .offering-item h4 {
++       font-size: 1.1rem;
++   }
++   .flow-list li {
++       padding-left: 45px;
++       font-size: 1rem;
++   }
++   .flow-list li::before {
++       width: 30px;
++       height: 30px;
++       font-size: 0.9rem;
++   }
++   .call-to-action {
++       padding: 30px 15px;
++   }
 }
 
-.skills-list li {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.skills-list i {
-    color: var(--primary-color);
-    margin-right: 15px;
-    font-size: 1.3em; /* アイコンを少し大きく */
+@media (max-width: 480px) {
+    /* (他のレスポンシブ設定は省略) */
++   .offering-item {
++        padding: 20px;
++   }
++    .offering-item ul li {
++       padding-left: 20px; /* アイコンインデント縮小 */
++    }
++   .offering-item ul.sub-list {
++       padding-left: 25px; /* ネストインデント縮小 */
++   }
++   .offering-item ul.tool-list,
++   .offering-item ul.poc-list {
++       padding-left: 25px; /* ネストインデント縮小 */
++   }
++   .flow-list li {
++       padding-left: 40px;
++   }
++   .flow-list li::before {
++       width: 28px;
++       height: 28px;
++   }
 }
 
 /* --- お問い合わせ & SNS --- */
