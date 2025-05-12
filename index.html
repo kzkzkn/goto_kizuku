@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <link rel="stylesheet" href="./index.css">
+    <!-- <link rel="stylesheet" href="./index.css"> --> <!-- 不要な場合や style.css と競合する場合はコメントアウトまたは削除 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kizuku Goto - Portfolio</title>
-    <link rel="stylesheet" href="style.css"> <!-- CSSファイルをリンク -->
+    <link rel="stylesheet" href="style.css"> <!-- メインのCSSファイルをリンク -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script> <!-- スムーズスクロール用にScrollToPluginを追加 -->
     <script src="https://unpkg.com/split-type"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.2/tsparticles.bundle.min.js"></script>
 </head>
 <body>
-    <!-- カスタムカーソル用HTML (オプション) -->
+    <!-- カスタムカーソル用HTML (JSで表示制御) -->
     <div class="custom-cursor">
         <div class="cursor-dot"></div>
         <div class="cursor-outline"></div>
@@ -35,7 +36,7 @@
             <li><a href="#profile" class="nav-link">Profile</a></li>
             <li><a href="#activities" class="nav-link">Activities</a></li>
             <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="#contact" class="nav-link">Connect</a></li> <!-- ContactからConnectへ変更 (セクションIDと合わせる) -->
         </ul>
     </nav>
 
@@ -50,6 +51,7 @@
                 <div class="profile-content">
                     <h2>About Me</h2>
                     <p>宮城県出身、群馬と東京で活動する生成AI好きな大学生。東京と群馬を中心に学生コミュニティの立ち上げや運営を通じて、熱意ある若者の可能性を引き出す活動を展開しています。</p>
+                    <!-- 必要であれば、さらに詳細な自己紹介を追加 -->
                 </div>
             </div>
         </section>
@@ -64,8 +66,9 @@
                         <li>企業協賛：12社＋1官庁</li>
                         <li>200名規模の講演イベント開催</li>
                         <li>常時40人のアクティブ学生を維持</li>
-                        <li>Softbank × KINGビジネスコンテスト優勝メンバー排出</li>
+                        <li>Softbank × KINGビジネスコンテスト優勝メンバー輩出</li> <!-- 排出 -> 輩出 -->
                     </ul>
+                    <!-- 実際のリンクに置き換えてください -->
                     <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
                 </div>
 
@@ -73,9 +76,10 @@
                     <h3>LinkedIn Student Club Japan</h3>
                     <p class="subtitle">Ambassador</p>
                     <ul>
-                        <li>Panasonic、日本マイクロソフトcopilot開発部チーム担当</li>
+                        <li>Panasonic、日本マイクロソフト Copilot 開発部チーム担当</li> <!-- copilot -> Copilot -->
                         <li>イベント総集客人数5,000名達成</li>
                     </ul>
+                    <!-- 実際のリンクに置き換えてください -->
                     <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Official Page →</a>
                 </div>
 
@@ -86,6 +90,7 @@
                         <li>BaseMe様とのコラボイベントモデレーター</li>
                         <li>AI・DX関連の学生向けイベント企画・運営</li>
                     </ul>
+                    <!-- 実際のリンクに置き換えてください -->
                     <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
                 </div>
             </div>
@@ -113,9 +118,10 @@
             </div>
         </section>
 
-        <section id="contact" class="social-section">
-            <h2 class="section-title anim-fade-up">Connect</h2>
+        <section id="contact" class="social-section"> <!-- section ID を "connect" から "contact" に (Navと合わせる) or Navを"Connect"に -->
+            <h2 class="section-title anim-fade-up">Connect</h2> <!-- 見出しは "Connect" のままに -->
             <div class="social-links">
+                <!-- 実際のリンクに置き換えてください -->
                 <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Twitter / X</a>
                 <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -125,48 +131,71 @@
     </main>
 
     <footer>
-        <p>© 2025 Kizuku Goto</p>
+        <p>© 2025 Kizuku Goto</p> <!-- 年は動的にするか、適切な年に修正 -->
     </footer>
 
+    <!-- JavaScript は別ファイルに分離するか、ここに入れる場合は <script> タグで囲む -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); // ScrollToPluginを登録
 
         // --- カスタムカーソル (オプション) ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
+        const customCursor = document.querySelector('.custom-cursor'); // 親要素も取得
         const body = document.body;
 
         let mouseX = 0, mouseY = 0;
         let dotX = 0, dotY = 0;
         let outlineX = 0, outlineY = 0;
+        let cursorInitialized = false; // 初期化フラグ
 
-        if (cursorDot && cursorOutline) { // 要素が存在する場合のみ実行
+        if (cursorDot && cursorOutline && customCursor) { // 要素が存在する場合のみ実行
             body.style.cursor = 'none'; // デフォルトカーソルを非表示
 
-            window.addEventListener('mousemove', (e) => {
+            const initCursor = (e) => {
+                if (!cursorInitialized) {
+                    mouseX = e.clientX; // 最初の位置を設定
+                    mouseY = e.clientY;
+                    dotX = mouseX;       // 初期位置を合わせる
+                    dotY = mouseY;
+                    outlineX = mouseX;
+                    outlineY = mouseY;
+                    customCursor.style.opacity = '1'; // ★★★ ここで表示 ★★★
+                    cursorInitialized = true;
+                    animateCursor(); // アニメーションループを開始
+                    // リスナーを削除して一度だけ実行されるようにする
+                    window.removeEventListener('mousemove', initCursor);
+                }
+                // 最初のmousemove後も通常の処理は継続
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-            });
+            };
+
+            // 最初のマウスムーブで初期化・表示
+            window.addEventListener('mousemove', initCursor);
 
             const animateCursor = () => {
-                dotX += (mouseX - dotX) * 0.6; // ドットの追従速度 (速め)
+                if (!cursorInitialized) return; // 初期化されるまで待機
+
+                dotX += (mouseX - dotX) * 0.6;
                 dotY += (mouseY - dotY) * 0.6;
-                outlineX += (mouseX - outlineX) * 0.15; // アウトラインの追従速度
+                outlineX += (mouseX - outlineX) * 0.15;
                 outlineY += (mouseY - outlineY) * 0.15;
 
-                cursorDot.style.transform = `translate(${dotX - cursorDot.offsetWidth / 2}px, ${dotY - cursorDot.offsetHeight / 2}px)`;
-                cursorOutline.style.transform = `translate(${outlineX - cursorOutline.offsetWidth / 2}px, ${outlineY - cursorOutline.offsetHeight / 2}px)`;
-                
+                // 要素が存在するか毎回確認（より安全）
+                if(cursorDot) cursorDot.style.transform = `translate(${dotX - cursorDot.offsetWidth / 2}px, ${dotY - cursorDot.offsetHeight / 2}px)`;
+                if(cursorOutline) cursorOutline.style.transform = `translate(${outlineX - cursorOutline.offsetWidth / 2}px, ${outlineY - cursorOutline.offsetHeight / 2}px)`;
+
                 requestAnimationFrame(animateCursor);
             };
-            animateCursor();
 
-            document.querySelectorAll('a, button, .activity-card, .skill-card, .profile-image-wrapper, .social-link').forEach(el => {
+            // ホバーエフェクト用のリスナーは変更なし
+            document.querySelectorAll('a, button, .activity-card, .skill-card, .profile-image-wrapper, .social-link, .nav-link').forEach(el => {
                 el.addEventListener('mouseenter', () => body.setAttribute('data-cursor-hover', 'true'));
                 el.addEventListener('mouseleave', () => body.removeAttribute('data-cursor-hover'));
             });
-            // テキストホバー時のカーソル変化 (必要ならコメント解除)
+             // テキストホバー時のカーソル変化 (必要ならコメント解除)
             // document.querySelectorAll('h1, h2, h3, p, li').forEach(el => {
             //     el.addEventListener('mouseenter', () => body.setAttribute('data-cursor-text', 'true'));
             //     el.addEventListener('mouseleave', () => body.removeAttribute('data-cursor-text'));
@@ -218,38 +247,38 @@
                     },
                     modes: {
                         grab: { distance: 150, links: { opacity: 0.3 } },
-                        repulse: { distance: 100, duration: 0.4 }
+                        repulse: { distance: 100, duration: 0.4 } // repulseはあまり効果が見えないかも
                     }
                 },
                 particles: {
-                    color: { value: "#aaaaaa" },
+                    color: { value: "#aaaaaa" }, // 少し明るく
                     links: {
-                        color: "#bbbbbb",
-                        distance: 120,
+                        color: "#bbbbbb", // 少し明るく
+                        distance: 130, // 少し広げる
                         enable: true,
-                        opacity: 0.15,
+                        opacity: 0.1, // 少し薄く
                         width: 1
                     },
                     move: {
                         direction: "none",
                         enable: true,
-                        outModes: { default: "bounce" },
+                        outModes: { default: "out" }, // 画面外に出るように変更
                         random: true,
-                        speed: 0.5,
+                        speed: 0.6, // 少し速く
                         straight: false
                     },
                     number: {
-                        density: { enable: true, area: 900 },
-                        value: 50
+                        density: { enable: true, area: 1000 }, // 密度調整
+                        value: 40 // 少し減らす
                     },
                     opacity: {
-                        value: {min: 0.1, max: 0.4},
-                        animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false}
+                        value: {min: 0.1, max: 0.3}, // 最大値を少し下げる
+                        animation: { enable: true, speed: 0.8, minimumValue: 0.05, sync: false} // 最小値を少し下げる
                     },
                     shape: { type: "circle" },
                     size: {
-                        value: { min: 1, max: 3 },
-                        animation: { enable: true, speed: 2, minimumValue: 0.5, sync: false }
+                        value: { min: 1, max: 2.5 }, // 最大サイズを少し小さく
+                        animation: { enable: true, speed: 1.5, minimumValue: 0.5, sync: false }
                     }
                 },
                 detectRetina: true
@@ -260,7 +289,7 @@
         const navbar = document.getElementById('navbar');
         if (navbar) {
             ScrollTrigger.create({
-                start: "150px top",
+                start: "150px top", // 少し早めに表示開始
                 onEnter: () => navbar.classList.add('visible'),
                 onLeaveBack: () => navbar.classList.remove('visible')
             });
@@ -273,11 +302,20 @@
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    let offset = navbar ? navbar.offsetHeight + 20 : 70; // ナビゲーションの高さを考慮
-                    if (window.innerWidth <= 768 && navbar) { // モバイルでナビゲーションが折り返している場合
-                         // モバイル時のナビゲーションの高さを動的に取得、または固定値を設定
-                         offset = navbar.offsetHeight + 10; // 必要に応じて調整
+                    let offset = 0;
+                    if (navbar && navbar.classList.contains('visible')) {
+                        offset = navbar.offsetHeight + 20; // ナビ表示時のオフセット
+                    } else {
+                         // ナビ非表示時（ページトップ付近）のオフセット、または固定値
+                         // ターゲットによってはオフセット不要な場合も
+                         offset = 50; // 例: 少しだけオフセット
                     }
+
+                    // モバイルでのオフセット調整（必要に応じて）
+                    if (window.innerWidth <= 768 && navbar && navbar.classList.contains('visible')) {
+                         offset = navbar.offsetHeight + 10;
+                    }
+
                     gsap.to(window, {
                         duration: 1,
                         scrollTo: {
@@ -296,63 +334,64 @@
                 { opacity: 0, y: 60 },
                 {
                     opacity: 1, y: 0, duration: 1, ease: "power3.out",
-                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%", // 少し早めにトリガー
+                        toggleActions: "play none none reverse" // スクロール戻ると消えるように変更
+                    }
                 }
             );
         });
 
+        // プロフィールセクションのアニメーション (Timeline)
         if (document.querySelector('.anim-profile')) {
             const tlProfile = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".anim-profile",
                     start: "top 80%",
-                    toggleActions: "play none none none"
+                    toggleActions: "play none none reverse" // スクロール戻ると消えるように変更
                 }
             });
             tlProfile.fromTo(".profile-image-wrapper .profile-image",
                 { opacity: 0, scale: 0.8, filter: "blur(5px)" },
                 { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1, ease: "expo.out" }
             )
-            .fromTo(".profile-image-wrapper::before",
+            .fromTo(".profile-image-wrapper::before", // 装飾背景のアニメーション
                 { opacity: 0, scale: 0.9, rotate: -5 },
                 { opacity: 0.9, scale: 1, rotate: 0, duration: 0.8, ease: "back.out(1.4)" },
-                "-=0.6"
+                "-=0.6" // 画像アニメーションの途中から開始
             )
             .fromTo(".profile-content h2",
                 { opacity: 0, x: -30 },
                 { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-                "-=0.5"
+                "-=0.5" // 背景アニメーションの途中から開始
             )
             .fromTo(".profile-content p",
                 { opacity: 0, x: -30 },
                 { opacity: 1, x: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" },
-                "-=0.4"
+                "-=0.4" // h2アニメーションの途中から開始
             );
         }
 
-        gsap.utils.toArray('.anim-stagger-item').forEach((item) => {
+        // Stagger アイテムのアニメーション
+        gsap.utils.toArray('.anim-stagger-item').forEach((item, index) => {
             let triggerElement = item.closest('.activities, .skills, .social-links') || item;
-            let delay = 0;
-            if (triggerElement !== item) { // If item has a valid parent for staggering
-                // Calculate delay based on index within its parent
-                const siblings = Array.from(triggerElement.children).filter(child => child.classList.contains('anim-stagger-item'));
-                const indexInParent = siblings.indexOf(item);
-                delay = indexInParent >= 0 ? indexInParent * 0.15 : 0;
-            }
 
             gsap.fromTo(item,
                 { opacity: 0, y: 50, scale: 0.95 },
                 {
                     opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power2.out",
                     scrollTrigger: {
-                        trigger: triggerElement,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
+                        trigger: triggerElement, // 親要素をトリガーにする
+                        start: "top 85%", // トリガー開始位置
+                        toggleActions: "play none none reverse", // スクロール戻ると消える
                     },
-                    delay: delay
+                     // 同じ親要素内のアイテムにディレイをかける
+                    delay: (item.classList.contains('activity-card') || item.classList.contains('skill-card') || item.classList.contains('social-link')) ? index * 0.1 : 0
                 }
             );
         });
+
 
     }); // End of DOMContentLoaded
     </script>
