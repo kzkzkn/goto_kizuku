@@ -1,443 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <link rel="stylesheet" href="./index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kizuku Goto - Portfolio</title>
+    <link rel="stylesheet" href="style.css"> <!-- CSSファイルをリンク -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/split-type"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.2/tsparticles.bundle.min.js"></script>
-<link rel="stylesheet" href="./style.css"/>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        :root {
-            --primary: #0d1117; /* 少し濃い黒 */
-            --secondary: #ffffff;
-            --accent: #3b82f6; /* Tailwind Blue 500 */
-            --accent-dark: #2563eb; /* Tailwind Blue 600 */
-            --text-primary: #1f2937; /* Tailwind Gray 800 */
-            --text-secondary: #4b5563; /* Tailwind Gray 600 */
-            --bg-light: #f9fafb; /* Tailwind Gray 50 */
-            --bg-medium: #f3f4f6; /* Tailwind Gray 100 */
-            --border-color: #e5e7eb; /* Tailwind Gray 200 */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background-color: var(--secondary);
-            overflow-x: hidden;
-            /* カスタムカーソル使用時はデフォルトカーソルを非表示 */
-            /* cursor: none; */
-        }
-
-        /* カスタムカーソル (オプション) */
-        .custom-cursor {
-            position: fixed;
-            left: 0;
-            top: 0;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference; /* 背景色によって色が変わる */
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--secondary); /* mix-blend-mode: differenceなので白系 */
-            border-radius: 50%;
-            transition: transform 0.1s ease-out;
-        }
-        .cursor-outline {
-            width: 30px;
-            height: 30px;
-            border: 1px solid var(--secondary);
-            border-radius: 50%;
-            position: absolute;
-            left: -11px; /* (30-8)/2 */
-            top: -11px;
-            transition: transform 0.2s ease-out, background-color 0.2s ease, border-color 0.2s ease, width 0.2s ease, height 0.2s ease;
-        }
-        /* ホバー時のカーソル変化 */
-        body[data-cursor-hover="true"] .cursor-outline {
-            transform: scale(1.8);
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: var(--accent);
-        }
-        body[data-cursor-text="true"] .cursor-outline {
-            width: 60px;
-            height: 20px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-
-        /* ヘッダー */
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: var(--secondary);
-            overflow: hidden; /* パーティクルがはみ出ないように */
-        }
-
-        #tsparticles-hero {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 900px;
-            padding: 0 2rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 8vw, 5.5rem); /* 少し大きく */
-            font-weight: 700;
-            letter-spacing: -0.025em; /* 微調整 */
-            margin-bottom: 1.5rem;
-            /* GSAPでアニメーションするためopacity:0などは不要 */
-        }
-        .hero-content h1 .char { /* SplitTypeで生成されるcharクラス */
-            display: inline-block; /* アニメーションのため */
-            opacity: 0; /* 初期非表示 */
-        }
-
-        .hero-content .subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.7rem); /* 少し調整 */
-            color: var(--text-secondary);
-            font-weight: 300;
-            line-height: 1.5;
-             /* GSAPでアニメーションするためopacity:0などは不要 */
-        }
-        .hero-content .subtitle .line { /* SplitTypeで生成されるlineクラス */
-            display: block; /* アニメーションのため */
-            opacity: 0; /* 初期非表示 */
-        }
-
-        /* ナビゲーション */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transform: translateY(-100%);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        nav.visible {
-            transform: translateY(0);
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            list-style: none;
-            padding: 1.25rem 0; /* 少し調整 */
-        }
-
-        nav a {
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.75rem 1.5rem; /* 少し調整 */
-            font-weight: 500;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-            position: relative;
-            overflow: hidden;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -100%; /* 初期位置を左外に */
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent);
-            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        nav a:hover {
-            color: var(--accent);
-        }
-        nav a:hover::after {
-            left: 0; /* ホバーで表示 */
-        }
-
-        /* セクション共通 */
-        section {
-            padding: 6rem 0; /* 少し余白を増やす */
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem); /* 少し調整 */
-            font-weight: 700;
-            margin-bottom: 3.5rem; /* 少し余白を増やす */
-            text-align: center;
-            /* GSAPでアニメーションするためopacity:0などは不要 */
-        }
-
-        /* プロフィール */
-        .profile-section { /* セクション単位でトリガーする場合用 */
-             /* GSAPでアニメーションするためopacity:0などは不要 */
-        }
-        .profile {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .profile-image-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-            margin: 0 auto;
-        }
-        .profile-image-wrapper::before { /* 装飾的な背景 */
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: 10px;
-            bottom: 10px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            z-index: -1;
-            opacity: 0; /* 初期非表示、GSAPでアニメーション */
-            transform: scale(0.9) rotate(-5deg); /* 初期状態 */
-            transition: opacity 0.5s ease, transform 0.5s ease; /* ホバー用 */
-        }
-        .profile-image-wrapper:hover::before {
-            opacity: 0.9;
-            transform: scale(1) rotate(0deg);
-        }
-        .profile-image {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            filter: brightness(1.05) contrast(1.1);
-            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
-            transform-origin: center center;
-        }
-        .profile-image-wrapper:hover .profile-image {
-            transform: scale(1.03);
-            filter: brightness(1.1) contrast(1.15);
-        }
-
-        .profile-content h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-        .profile-content p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        /* 活動・実績 */
-        .activities {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* minmax調整 */
-            gap: 2.5rem; /* 少し調整 */
-        }
-
-        .activity-card {
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            background-color: var(--secondary);
-            border-radius: 8px; /* 角丸 */
-        }
-        .activity-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.2);
-            background-color: var(--bg-light);
-        }
-        .activity-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        .activity-card .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-        .activity-card ul {
-            list-style: none;
-        }
-        .activity-card li {
-            padding: 0.5rem 0;
-            color: var(--text-secondary);
-            position: relative;
-            padding-left: 1.8rem; /* 少し調整 */
-            font-size: 0.95rem;
-        }
-        .activity-card li::before {
-            content: '✓'; /* チェックマークに変更 */
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .activity-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600; /* 少し太く */
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .activity-link:hover {
-            transform: translateX(6px);
-            color: var(--accent-dark);
-        }
-
-        /* スキル */
-        .skills {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* minmax調整 */
-            gap: 2.5rem; /* 少し調整 */
-        }
-        .skill-card {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: var(--bg-light);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border-radius: 8px; /* 角丸 */
-            border: 1px solid transparent;
-        }
-        .skill-card:hover {
-            background: var(--secondary);
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
-            border-color: var(--accent);
-        }
-        .skill-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        .skill-card:hover h3 {
-            color: var(--accent);
-        }
-        .skill-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* SNS */
-        .social-section {
-            text-align: center;
-            padding: 4rem 0; /* 少し調整 */
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* レスポンシブ対応のため最初から */
-            gap: 1.5rem; /* 少し調整 */
-            margin-top: 2.5rem; /* 少し調整 */
-        }
-        .social-link {
-            display: inline-flex; /* アイコンなど入れる場合に備えて */
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            font-weight: 500;
-            text-decoration: none;
-            padding: 0.8rem 1.8rem; /* 少し調整 */
-            border: 2px solid var(--text-primary);
-            border-radius: 50px; /* ピル形状 */
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .social-link:hover {
-            background: var(--accent);
-            color: var(--secondary);
-            transform: translateY(-5px) scale(1.05);
-            border-color: var(--accent);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-        }
-
-        /* フッター */
-        footer {
-            text-align: center;
-            padding: 4rem 0; /* 少し余白を増やす */
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
-
-        /* スクロールインジケーター */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem; /* 少し上に */
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounceArrow 2.5s infinite cubic-bezier(0.5, 0.05, 1, 0.5);
-            opacity: 0; /* 初期非表示、GSAPで表示 */
-        }
-        .scroll-indicator::after {
-            content: '↓';
-            font-size: 1.8rem; /* 少し大きく */
-            color: var(--text-secondary);
-        }
-        @keyframes bounceArrow {
-            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1;}
-            50% { transform: translateX(-50%) translateY(15px); opacity: 0.5;}
-        }
-
-
-        /* レスポンシブ */
-        @media (max-width: 768px) {
-            .profile {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
-            }
-            .profile-image-wrapper {
-                max-width: 300px;
-            }
-            .activities, .skills {
-                grid-template-columns: 1fr;
-            }
-            nav ul {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                padding: 1rem 0;
-            }
-            nav a {
-                padding: 0.5rem 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- カスタムカーソル用HTML (オプション) -->
@@ -467,87 +39,90 @@
         </ul>
     </nav>
 
-    <section id="profile" class="profile-section">
-        <h2 class="section-title anim-fade-up">Profile</h2>
-        <div class="profile anim-profile">
-            <div class="profile-image-wrapper">
-                <img src="/api/placeholder/300/300" alt="Kizuku Goto" class="profile-image">
+    <main>
+        <section id="profile" class="profile-section">
+            <h2 class="section-title anim-fade-up">Profile</h2>
+            <div class="profile anim-profile">
+                <div class="profile-image-wrapper">
+                    <!-- ご自身の画像パスに置き換えてください -->
+                    <img src="https://via.placeholder.com/350x350/2563eb/ffffff?text=Kizuku+Goto" alt="Kizuku Goto" class="profile-image">
+                </div>
+                <div class="profile-content">
+                    <h2>About Me</h2>
+                    <p>宮城県出身、群馬と東京で活動する生成AI好きな大学生。東京と群馬を中心に学生コミュニティの立ち上げや運営を通じて、熱意ある若者の可能性を引き出す活動を展開しています。</p>
+                </div>
             </div>
-            <div class="profile-content">
-                <h2>About Me</h2>
-                <p>宮城県出身、群馬と東京で活動する生成AI好きな大学生。東京と群馬を中心に学生コミュニティの立ち上げや運営を通じて、熱意ある若者の可能性を引き出す活動を展開しています。</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="activities">
-        <h2 class="section-title anim-fade-up">Activities</h2>
-        <div class="activities">
-            <div class="activity-card anim-stagger-item">
-                <h3>学生団体 SONOSAKI</h3>
-                <p class="subtitle">立ち上げ／仕組み化</p>
-                <ul>
-                    <li>企業協賛：12社＋1官庁</li>
-                    <li>200名規模の講演イベント開催</li>
-                    <li>常時40人のアクティブ学生を維持</li>
-                    <li>Softbank × KINGビジネスコンテスト優勝メンバー排出</li>
-                </ul>
-                <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
-            </div>
+        <section id="activities">
+            <h2 class="section-title anim-fade-up">Activities</h2>
+            <div class="activities">
+                <div class="activity-card anim-stagger-item">
+                    <h3>学生団体 SONOSAKI</h3>
+                    <p class="subtitle">立ち上げ／仕組み化</p>
+                    <ul>
+                        <li>企業協賛：12社＋1官庁</li>
+                        <li>200名規模の講演イベント開催</li>
+                        <li>常時40人のアクティブ学生を維持</li>
+                        <li>Softbank × KINGビジネスコンテスト優勝メンバー排出</li>
+                    </ul>
+                    <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
+                </div>
 
-            <div class="activity-card anim-stagger-item">
-                <h3>LinkedIn Student Club Japan</h3>
-                <p class="subtitle">Ambassador</p>
-                <ul>
-                    <li>Panasonic、日本マイクロソフトcopilot開発部チーム担当</li>
-                    <li>イベント総集客人数5,000名達成</li>
-                </ul>
-                <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Official Page →</a>
-            </div>
+                <div class="activity-card anim-stagger-item">
+                    <h3>LinkedIn Student Club Japan</h3>
+                    <p class="subtitle">Ambassador</p>
+                    <ul>
+                        <li>Panasonic、日本マイクロソフトcopilot開発部チーム担当</li>
+                        <li>イベント総集客人数5,000名達成</li>
+                    </ul>
+                    <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Official Page →</a>
+                </div>
 
-            <div class="activity-card anim-stagger-item">
-                <h3>学生団体 AIspire</h3>
-                <p class="subtitle">立ち上げ</p>
-                <ul>
-                    <li>BaseMe様とのコラボイベントモデレーター</li>
-                    <li>AI・DX関連の学生向けイベント企画・運営</li>
-                </ul>
-                <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
+                <div class="activity-card anim-stagger-item">
+                    <h3>学生団体 AIspire</h3>
+                    <p class="subtitle">立ち上げ</p>
+                    <ul>
+                        <li>BaseMe様とのコラボイベントモデレーター</li>
+                        <li>AI・DX関連の学生向けイベント企画・運営</li>
+                    </ul>
+                    <a href="#" class="activity-link" target="_blank" rel="noopener noreferrer">Instagram →</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills">
-        <h2 class="section-title anim-fade-up">Skills</h2>
-        <div class="skills">
-            <div class="skill-card anim-stagger-item">
-                <h3>生成AIの導入支援</h3>
-                <p>企業や学生団体向けのAI活用コンサルティング</p>
+        <section id="skills">
+            <h2 class="section-title anim-fade-up">Skills</h2>
+            <div class="skills">
+                <div class="skill-card anim-stagger-item">
+                    <h3>生成AIの導入支援</h3>
+                    <p>企業や学生団体向けのAI活用コンサルティング</p>
+                </div>
+                <div class="skill-card anim-stagger-item">
+                    <h3>イベント運営</h3>
+                    <p>学生向けイベントの運営・集客・企画</p>
+                </div>
+                <div class="skill-card anim-stagger-item">
+                    <h3>コミュニティ構築</h3>
+                    <p>コミュニティの立ち上げ・仕組み化</p>
+                </div>
+                <div class="skill-card anim-stagger-item">
+                    <h3>新規事業開発</h3>
+                    <p>新規事業開発やアイデア出し支援（特に学生向け）</p>
+                </div>
             </div>
-            <div class="skill-card anim-stagger-item">
-                <h3>イベント運営</h3>
-                <p>学生向けイベントの運営・集客・企画</p>
-            </div>
-            <div class="skill-card anim-stagger-item">
-                <h3>コミュニティ構築</h3>
-                <p>コミュニティの立ち上げ・仕組み化</p>
-            </div>
-            <div class="skill-card anim-stagger-item">
-                <h3>新規事業開発</h3>
-                <p>新規事業開発やアイデア出し支援（特に学生向け）</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="social-section">
-        <h2 class="section-title anim-fade-up">Connect</h2>
-        <div class="social-links">
-            <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-            <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">LINE</a>
-        </div>
-    </section>
+        <section id="contact" class="social-section">
+            <h2 class="section-title anim-fade-up">Connect</h2>
+            <div class="social-links">
+                <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+                <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="#" class="social-link anim-stagger-item" target="_blank" rel="noopener noreferrer">LINE</a>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <p>© 2025 Kizuku Goto</p>
@@ -591,10 +166,11 @@
                 el.addEventListener('mouseenter', () => body.setAttribute('data-cursor-hover', 'true'));
                 el.addEventListener('mouseleave', () => body.removeAttribute('data-cursor-hover'));
             });
-            document.querySelectorAll('h1, h2, h3, p, li').forEach(el => {
-                // el.addEventListener('mouseenter', () => body.setAttribute('data-cursor-text', 'true'));
-                // el.addEventListener('mouseleave', () => body.removeAttribute('data-cursor-text'));
-            });
+            // テキストホバー時のカーソル変化 (必要ならコメント解除)
+            // document.querySelectorAll('h1, h2, h3, p, li').forEach(el => {
+            //     el.addEventListener('mouseenter', () => body.setAttribute('data-cursor-text', 'true'));
+            //     el.addEventListener('mouseleave', () => body.removeAttribute('data-cursor-text'));
+            // });
         }
 
 
@@ -637,7 +213,7 @@
                 fpsLimit: 60,
                 interactivity: {
                     events: {
-                        onHover: { enable: true, mode: "grab" }, // grabに変更
+                        onHover: { enable: true, mode: "grab" },
                         resize: { enable: true }
                     },
                     modes: {
@@ -649,25 +225,25 @@
                     color: { value: "#aaaaaa" },
                     links: {
                         color: "#bbbbbb",
-                        distance: 120, // 少し短く
+                        distance: 120,
                         enable: true,
-                        opacity: 0.15, // 少し薄く
+                        opacity: 0.15,
                         width: 1
                     },
                     move: {
                         direction: "none",
                         enable: true,
-                        outModes: { default: "bounce" }, // bounceに変更
-                        random: true, // ランダムな動き
-                        speed: 0.5, // 遅めに
+                        outModes: { default: "bounce" },
+                        random: true,
+                        speed: 0.5,
                         straight: false
                     },
                     number: {
-                        density: { enable: true, area: 900 }, // 少し密度上げる
-                        value: 50 // 数を増やす
+                        density: { enable: true, area: 900 },
+                        value: 50
                     },
                     opacity: {
-                        value: {min: 0.1, max: 0.4}, // ランダムな透明度
+                        value: {min: 0.1, max: 0.4},
                         animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false}
                     },
                     shape: { type: "circle" },
@@ -684,7 +260,7 @@
         const navbar = document.getElementById('navbar');
         if (navbar) {
             ScrollTrigger.create({
-                start: "150px top", // 150pxスクロールしたら
+                start: "150px top",
                 onEnter: () => navbar.classList.add('visible'),
                 onLeaveBack: () => navbar.classList.remove('visible')
             });
@@ -697,11 +273,16 @@
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    let offset = navbar ? navbar.offsetHeight + 20 : 70; // ナビゲーションの高さを考慮
+                    if (window.innerWidth <= 768 && navbar) { // モバイルでナビゲーションが折り返している場合
+                         // モバイル時のナビゲーションの高さを動的に取得、または固定値を設定
+                         offset = navbar.offsetHeight + 10; // 必要に応じて調整
+                    }
                     gsap.to(window, {
-                        duration: 1, // アニメーション時間
+                        duration: 1,
                         scrollTo: {
                             y: targetElement,
-                            offsetY: navbar.offsetHeight + 20 // ナビゲーションの高さを考慮
+                            offsetY: offset
                         },
                         ease: "power2.inOut"
                     });
@@ -710,7 +291,6 @@
         });
 
         // --- 汎用スクロールアニメーション ---
-        // フェードアップ (主にセクションタイトル用)
         gsap.utils.toArray('.anim-fade-up').forEach(el => {
             gsap.fromTo(el,
                 { opacity: 0, y: 60 },
@@ -721,7 +301,6 @@
             );
         });
 
-        // プロフィールセクションのアニメーション (要素ごとに少し凝ったもの)
         if (document.querySelector('.anim-profile')) {
             const tlProfile = gsap.timeline({
                 scrollTrigger: {
@@ -734,10 +313,10 @@
                 { opacity: 0, scale: 0.8, filter: "blur(5px)" },
                 { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1, ease: "expo.out" }
             )
-            .fromTo(".profile-image-wrapper::before", // 画像の背景装飾
+            .fromTo(".profile-image-wrapper::before",
                 { opacity: 0, scale: 0.9, rotate: -5 },
                 { opacity: 0.9, scale: 1, rotate: 0, duration: 0.8, ease: "back.out(1.4)" },
-                "-=0.6" // 前のアニメーションと少し重ねる
+                "-=0.6"
             )
             .fromTo(".profile-content h2",
                 { opacity: 0, x: -30 },
@@ -751,27 +330,26 @@
             );
         }
 
-        // スタッガードアイテムのアニメーション (カードなど)
-        gsap.utils.toArray('.anim-stagger-item').forEach((item, index, array) => {
-            // 親要素を取得 (例: .activities, .skills, .social-links)
-            // 親要素ごとにScrollTriggerを設定することで、グループとして発火
-            let triggerElement = item.closest('.activities, .skills, .social-links');
-            if (!triggerElement) triggerElement = item; // 親が見つからなければ自身をトリガーに
+        gsap.utils.toArray('.anim-stagger-item').forEach((item) => {
+            let triggerElement = item.closest('.activities, .skills, .social-links') || item;
+            let delay = 0;
+            if (triggerElement !== item) { // If item has a valid parent for staggering
+                // Calculate delay based on index within its parent
+                const siblings = Array.from(triggerElement.children).filter(child => child.classList.contains('anim-stagger-item'));
+                const indexInParent = siblings.indexOf(item);
+                delay = indexInParent >= 0 ? indexInParent * 0.15 : 0;
+            }
 
             gsap.fromTo(item,
                 { opacity: 0, y: 50, scale: 0.95 },
                 {
                     opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power2.out",
                     scrollTrigger: {
-                        trigger: triggerElement, // グループの親をトリガーに
+                        trigger: triggerElement,
                         start: "top 85%",
                         toggleActions: "play none none none",
-                        // 各アイテムの遅延はJSで制御 (GSAPのstaggerプロパティではない)
-                        // もしScrollTriggerのstaggerを使う場合は、
-                        // ScrollTrigger.batch(".anim-stagger-item", { ... }) のようにする
                     },
-                    delay: (item.closest('.activities, .skills, .social-links') ? (index % (triggerElement.children.length || 1)) * 0.15 : 0)
-                    // 上記のdelayは、同じ親を持つ要素内でのスタッガー
+                    delay: delay
                 }
             );
         });
