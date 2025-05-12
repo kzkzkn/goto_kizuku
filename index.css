@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #0d1117; /* 少し濃い黒 */
+    --secondary: #ffffff;
+    --accent: #3b82f6; /* Tailwind Blue 500 */
+    --accent-dark: #2563eb; /* Tailwind Blue 600 */
+    --text-primary: #1f2937; /* Tailwind Gray 800 */
+    --text-secondary: #4b5563; /* Tailwind Gray 600 */
+    --bg-light: #f9fafb; /* Tailwind Gray 50 */
+    --bg-medium: #f3f4f6; /* Tailwind Gray 100 */
+    --border-color: #e5e7eb; /* Tailwind Gray 200 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--secondary);
+    overflow-x: hidden;
+    /* カスタムカーソル使用時はデフォルトカーソルを非表示 (JSで制御) */
+}
+
+/* カスタムカーソル (オプション) */
+.custom-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference; /* 背景色によって色が変わる */
+    opacity: 0; /* 初期非表示、JSで表示 */
+    transition: opacity 0.3s ease; /* 表示/非表示のトランジション */
+}
+body.cursor-visible .custom-cursor { /* JSでbodyにクラス付与して表示 */
+    opacity: 1;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--secondary); /* mix-blend-mode: differenceなので白系 */
+    border-radius: 50%;
+    transition: transform 0.1s ease-out;
+}
+.cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--secondary);
+    border-radius: 50%;
+    position: absolute;
+    left: -11px; /* (30-8)/2 */
+    top: -11px;
+    transition: transform 0.2s ease-out, background-color 0.2s ease, border-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+/* ホバー時のカーソル変化 */
+body[data-cursor-hover="true"] .cursor-outline {
+    transform: scale(1.8);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+}
+body[data-cursor-text="true"] .cursor-outline { /* テキストホバー時 (現在JSでは未使用) */
+    width: 60px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ヘッダー */
+header {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: var(--secondary);
+    overflow: hidden; /* パーティクルがはみ出ないように */
+}
+
+#tsparticles-hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 900px;
+    padding: 0 2rem;
+    z-index: 2;
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+}
+.hero-content h1 .char { /* SplitTypeで生成されるcharクラス */
+    display: inline-block; /* アニメーションのため */
+    opacity: 0; /* 初期非表示 (GSAPで制御) */
+    transform-origin: bottom; /* rotateXアニメーションの基点 */
+}
+
+.hero-content .subtitle {
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.5;
+}
+.hero-content .subtitle .line { /* SplitTypeで生成されるlineクラス */
+    display: block; /* アニメーションのため */
+    opacity: 0; /* 初期非表示 (GSAPで制御) */
+}
+
+/* ナビゲーション */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+nav.visible {
+    transform: translateY(0);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 1.25rem 0;
+}
+
+nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%; /* 初期位置を左外に */
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+nav a:hover {
+    color: var(--accent);
+}
+nav a:hover::after {
+    left: 0; /* ホバーで表示 */
+}
+
+/* メインコンテンツ */
+main {
+    /* 必要に応じてスタイルを追加 */
+}
+
+/* セクション共通 */
+section {
+    padding: 6rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    text-align: center;
+    /* GSAPでアニメーションするためopacity:0などは不要 */
+}
+
+/* プロフィール */
+.profile-section {
+    /* GSAPでアニメーションするためopacity:0などは不要 */
+}
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+}
+.profile-image-wrapper::before { /* 装飾的な背景 */
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    z-index: -1;
+    opacity: 0; /* 初期非表示、GSAPでアニメーション */
+    transform: scale(0.9) rotate(-5deg); /* 初期状態 */
+    border-radius: 4px; /* 少し角丸 */
+    /* ホバー時のトランジションはGSAPで制御 or CSSでも可 */
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.profile-image-wrapper:hover::before {
+    opacity: 0.95; /* 少し調整 */
+    transform: scale(1.02) rotate(1deg); /* 少し動きを出す */
+}
+.profile-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(1.05) contrast(1.1);
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
+    transform-origin: center center;
+    border-radius: 4px; /* 画像にも角丸 */
+}
+.profile-image-wrapper:hover .profile-image {
+    transform: scale(1.03);
+    filter: brightness(1.1) contrast(1.15);
+}
+
+.profile-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+.profile-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* 活動・実績 */
+.activities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.activity-card {
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background-color: var(--secondary);
+    border-radius: 8px;
+}
+.activity-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.2); /* accent color shadow */
+    background-color: var(--bg-light);
+}
+.activity-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.activity-card .subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.activity-card ul {
+    list-style: none;
+}
+.activity-card li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 1.8rem;
+    font-size: 0.95rem;
+}
+.activity-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.activity-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.activity-link:hover {
+    transform: translateX(6px);
+    color: var(--accent-dark);
+}
+
+/* スキル */
+.skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+}
+.skill-card {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--bg-light);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+.skill-card:hover {
+    background: var(--secondary);
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent);
+}
+.skill-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease; /* ホバー時の色変化をスムーズに */
+}
+.skill-card:hover h3 {
+    color: var(--accent);
+}
+.skill-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* SNS */
+.social-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.8rem 1.8rem;
+    border: 2px solid var(--text-primary);
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.social-link:hover {
+    background: var(--accent);
+    color: var(--secondary);
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+/* スクロールインジケーター */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounceArrow 2.5s infinite cubic-bezier(0.5, 0.05, 1, 0.5);
+    opacity: 0; /* 初期非表示、GSAPで表示 */
+}
+.scroll-indicator::after {
+    content: '↓';
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+}
+@keyframes bounceArrow {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1;}
+    50% { transform: translateX(-50%) translateY(15px); opacity: 0.5;}
+}
+
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .profile {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+    .profile-image-wrapper {
+        max-width: 300px;
+    }
+    .activities, .skills {
+        grid-template-columns: 1fr;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem 0;
+    }
+    nav a {
+        padding: 0.5rem 1rem;
+    }
+    .section-title {
+        font-size: clamp(1.8rem, 5vw, 2.5rem); /* モバイルでのタイトルサイズ調整 */
+        margin-bottom: 2.5rem;
+    }
+    section {
+        padding: 4rem 0; /* モバイルでのセクション余白調整 */
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .hero-content h1 {
+        font-size: clamp(2rem, 10vw, 3.5rem); /* モバイルでのヒーロータイトル調整 */
+    }
+    .hero-content .subtitle {
+        font-size: clamp(1rem, 4vw, 1.4rem); /* モバイルでのヒーローサブタイトル調整 */
+    }
+}
